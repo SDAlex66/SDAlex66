@@ -9,15 +9,13 @@ jobs:
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@v4
       - uses: lowlighter/metrics@latest
         with:
           token: ${{ secrets.METRICS_TOKEN }}
-          
           template: "@metrics-template"
-          setup_community_templates: "SDAlex66/SDAlex66@main:metrics-template+trust"
           
           base: ""
-          
           plugin_pagespeed: yes
           plugin_pagespeed_detailed: yes
           plugin_pagespeed_url: https://alextula.com
