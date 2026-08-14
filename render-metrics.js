@@ -7,11 +7,11 @@ try { require.resolve("ejs"); }
 catch { execSync("npm install --no-save ejs", { stdio: "inherit" }); }
 const ejs = require("ejs");
 
-const TEMPLATE_DIR = path.join(__dirname, "metrics-template");
+const TEMPLATE_DIR = path.join(__dirname, "metrics-template/partials");
 
 const fonts    = fs.readFileSync(path.join(TEMPLATE_DIR, "fonts.css"),   "utf8");
 const style    = fs.readFileSync(path.join(TEMPLATE_DIR, "styles.css"),  "utf8");
-const template = fs.readFileSync(path.join(TEMPLATE_DIR, "index.ejs"),   "utf8");
+const template = fs.readFileSync(path.join(TEMPLATE_DIR, "pagespeed.ejs"),   "utf8");
 
 const mobile  = JSON.parse(fs.readFileSync("mobile.json",  "utf8"));
 const desktop = JSON.parse(fs.readFileSync("desktop.json", "utf8"));
