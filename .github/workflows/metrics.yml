@@ -6,15 +6,16 @@ on:
 jobs:
   github-metrics:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     permissions:
       contents: write
     steps:
       - uses: actions/checkout@v4
+      
       - uses: lowlighter/metrics@latest
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           template: "@metrics-template"
-          
           base: ""
           plugin_pagespeed: yes
           plugin_pagespeed_detailed: yes
