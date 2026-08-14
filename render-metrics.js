@@ -10,12 +10,14 @@ const ejs = require("ejs");
 const ROOT_DIR = path.join(__dirname, "metrics-template");
 const PARTIALS_DIR = path.join(ROOT_DIR, "partials");
 
-const fonts    = fs.readFileSync(path.join(ROOT_DIR, "fonts.css"),   "utf8");
-const style    = fs.readFileSync(path.join(ROOT_DIR, "style.css"),   "utf8");
-const template = fs.readFileSync(path.join(ROOT_DIR, "image.svg"),   "utf8");
+const safeRead = (filePath) => fs.existsSync(filePath) ? fs.readFileSync(filePath, "utf8") : "";
 
-const mobile  = JSON.parse(fs.readFileSync("mobile.json",  "utf8"));
-const desktop = JSON.parse(fs.readFileSync("desktop.json", "utf8"));
+const fonts    = safeRead(path.join(ROOT_DIR, "fonts.css"));
+const style    = safeRead(path.join(ROOT_DIR, "style.css"));
+const template = safeRead(path.join(ROOT_DIR, "image.svg"));
+
+const mobile  = fs.existsSync("mobile.json") ? JSON.parse(fs.readFileSync("mobile.json", "utf8")) : {};
+const desktop = fs.existsSync("desktop.json") ? JSON.parse(fs.readFileSync("desktop.json", "utf8")) : {};
 
 const score = (data, cat) =>
   Math.round((data?.lighthouseResult?.categories?.[cat]?.score ?? 0) * 100);
@@ -51,7 +53,8 @@ const data = {
 };
 
 data.include = async (relativePath) => {
-  const src = fs.readFileSync(path.join(PARTIALS_DIR, relativePath), "utf8");
+  const targetPath = path.join(PARTIALS_DIR, relativePath.endsWith(".ejs") ? relativePath : `${relativePath}.ejs`);
+  const src = safeRead(targetPath);
   return ejs.render(src, data, { async: true });
 };
 
