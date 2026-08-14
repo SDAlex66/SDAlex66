@@ -1,0 +1,19 @@
+<% if (plugins.pagespeed) { %>
+<%
+  const sc = plugins.pagespeed.score
+  const entries = [
+    ['Performance',    sc.performance],
+    ['Accessibility',  sc.accessibility],
+    ['Best Practices', sc['best-practices']],
+    ['SEO',            sc.seo],
+  ]
+  const color = v => v >= 90 ? '#a6e3a1' : v >= 50 ? '#f9e2af' : '#f38ba8'
+  const bar   = v => '█'.repeat(Math.round(v / 5)) + '░'.repeat(20 - Math.round(v / 5))
+%>
+<div class="stdin">pagespeed <span class="ps1-path"><%= plugins.pagespeed.url %></span></div>
+<div class="stdout">
+<% for (const [label, val] of entries) { %>
+  <span class="diff"><%= (label + ' ').padEnd(18) %></span><span style="color:<%= color(val) %>"><%= bar(val) %> <%= String(val).padStart(3) %></span>
+<% } %>
+</div>
+<% } %>
