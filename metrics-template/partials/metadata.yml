@@ -1,6 +1,5 @@
 name: metrics-template
 author: SDAlex66
-description: Custom Catppuccin Mocha Lavender Terminal
-category: community
-formats:
-  - svg
+supports:
+  - base
+  - pagespeed
