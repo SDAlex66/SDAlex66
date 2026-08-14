@@ -7,11 +7,12 @@ try { require.resolve("ejs"); }
 catch { execSync("npm install --no-save ejs", { stdio: "inherit" }); }
 const ejs = require("ejs");
 
-const TEMPLATE_DIR = path.join(__dirname, "metrics-template/partials");
+const ROOT_DIR = path.join(__dirname, "metrics-template");
+const PARTIALS_DIR = path.join(ROOT_DIR, "partials");
 
-const fonts    = fs.readFileSync(path.join(TEMPLATE_DIR, "fonts.css"),   "utf8");
-const style    = fs.readFileSync(path.join(TEMPLATE_DIR, "styles.css"),  "utf8");
-const template = fs.readFileSync(path.join(TEMPLATE_DIR, "pagespeed.ejs"),   "utf8");
+const fonts    = fs.readFileSync(path.join(ROOT_DIR, "fonts.css"),   "utf8");
+const style    = fs.readFileSync(path.join(ROOT_DIR, "style.css"),   "utf8");
+const template = fs.readFileSync(path.join(ROOT_DIR, "image.svg"),   "utf8");
 
 const mobile  = JSON.parse(fs.readFileSync("mobile.json",  "utf8"));
 const desktop = JSON.parse(fs.readFileSync("desktop.json", "utf8"));
@@ -49,9 +50,8 @@ const data = {
   extras:   { css: "" },
 };
 
-
 data.include = async (relativePath) => {
-  const src = fs.readFileSync(path.join(TEMPLATE_DIR, relativePath), "utf8");
+  const src = fs.readFileSync(path.join(PARTIALS_DIR, relativePath), "utf8");
   return ejs.render(src, data, { async: true });
 };
 
