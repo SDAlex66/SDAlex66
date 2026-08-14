@@ -3,6 +3,7 @@ on:
   schedule:
     - cron: "0 0 * * *"
   workflow_dispatch:
+
 jobs:
   github-metrics:
     runs-on: ubuntu-latest
@@ -11,18 +12,24 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      
-      - uses: lowlighter/metrics@v3.34
-        with:
-          token: ${{ secrets.METRICS_TOKEN }}
-          
-          template: "@metrics-template"
 
-          
-          setup_community_templates: "SDAlex66/SDAlex66@main:metrics-template+trust"
-          
-          base: ""
-          plugin_pagespeed: yes
-          plugin_pagespeed_detailed: yes
-          plugin_pagespeed_url: https://alextula.com
-          plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Fetch PageSpeed data
+        run: |
+          curl -sf "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=https://alextula.com&strategy=mobile&key=${{ secrets.PAGESPEED_TOKEN }}" \
+            -o mobile.json
+          curl -sf "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=https://alextula.com&strategy=desktop&key=${{ secrets.PAGESPEED_TOKEN }}" \
+            -o desktop.json
+
+      - name: Render metrics SVG
+        run: node render-metrics.js
+
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add github-metrics.svg
+          git diff --cached --quiet || (git commit -m "chore: update metrics" && git push)
