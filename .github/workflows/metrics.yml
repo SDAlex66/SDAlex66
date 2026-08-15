@@ -9,7 +9,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: lowlighter/metrics@latest
+      - uses: lowlighter/metrics@v3.34
         with:
           template: "@kitty-mocha"
           setup_community_templates: "SDAlex66/SDAlex66@main:kitty-mocha+trust"
