@@ -1,6 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="480" height="99999" class="<%= !animated ? 'no-animations' : '' %>">
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="<%= svgHeight %>" class="<%= !animated ? 'no-animations' : '' %>">
   <%
-    meta.$ = `<span class="ps1-path">alext@github-profile</span> <span class="ps1-location">~$</span> pagespeed alextula.com`
     meta.animations = !meta.placeholder ? {stdin:.16, stdout:.28, length:(2+Object.keys(base).length+Object.keys(plugins).length)} : {stdin:0, stdout:0, length:0}
   %>
 
@@ -43,12 +42,6 @@
       </div>
 
 <pre><%# -%>
-<% if (base.metadata) { %>
-<div class="banner"><%# -%>
-
-
-Last generated: <%= meta.generated %>
-</div><% } -%>
 <% if (warnings.length) { %><div class="warnings"><%- warnings.map(({warning}) => `WARN: ${warning.message}`).join("<br/>") %></div><% } %><%# -%>
 <% for (const partial of [...partials]) { %><%- await include(`${partial}.ejs`) %><% } -%>
 </pre>
