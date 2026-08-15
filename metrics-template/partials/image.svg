@@ -1,52 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="<%= svgHeight %>" class="<%= !animated ? 'no-animations' : '' %>">
-  <%
-    meta.animations = !meta.placeholder ? {stdin:.16, stdout:.28, length:(2+Object.keys(base).length+Object.keys(plugins).length)} : {stdin:0, stdout:0, length:0}
-  %>
-
-  <defs><style><%= fonts %></style></defs>
-
-  <style data-optimizable="true">
-    <%= style %>
-      .stdin, .stdout {
-        animation-duration: <%= meta.animations.stdin %>s;
-      }
-      .stdout {
-        animation-duration: <%= meta.animations.stdout %>s;
-      }
-      <% for (let i = 0, d = 0; i < meta.animations.length; i++, d+=meta.animations.stdin+meta.animations.stdout) { %>
-        .stdin:nth-of-type(<%= i+1 %>) {
-          animation-delay: <%= d %>s;
-        }
-        .stdout:nth-of-type(<%= i+2 %>) {
-          animation-delay: <%= d+meta.animations.stdin %>s;
-        }
-        <% if (i === meta.animations.length-1) { %>
-          footer {
-            animation-delay: <%= d %>s;
-          }
-        <% } %>
-      <% } %>
-  </style>
-  <style><%= extras.css %></style>
-
-  <foreignObject x="0" y="0" width="100%" height="100%">
-    <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink">
-
-      <div class="header">
-        <span class="title"></span>
-        <div class="buttons">
-          <div class="button">─</div>
-          <div class="button">□</div>
-          <div class="button exit">✕</div>
-        </div>
-      </div>
-
-<pre><%# -%>
-<% if (warnings.length) { %><div class="warnings"><%- warnings.map(({warning}) => `WARN: ${warning.message}`).join("<br/>") %></div><% } %><%# -%>
-<% for (const partial of [...partials]) { %><%- await include(`${partial}.ejs`) %><% } -%>
-</pre>
-
-    </div>
-    <div id="metrics-end"></div>
-  </foreignObject>
-</svg>
+<% if (plugins.pagespeed) { %>
+<%
+  const m = plugins.pagespeed.mobile
+  const d = plugins.pagespeed.desktop
+  const entries = [
+    ['Performance',    'performance'],
+    ['Accessibility',  'accessibility'],
+    ['Best Practices', 'best-practices'],
+    ['SEO',            'seo'],
+  ]
+  const color = v => v >= 90 ? '#a6e3a1' : v >= 50 ? '#f9e2af' : '#f38ba8'
+  const bar   = v => '█'.repeat(Math.round(v / 5)) + '░'.repeat(20 - Math.round(v / 5))
+  const label = (l) => (l + ' ').padEnd(16)
+%>
+<div class="stdin"><span class="diff">alext@github-profile</span><span class="ps1-location">~$</span> pagespeed <span class="ps1-path"><%= plugins.pagespeed.url %></span></div>
+<div class="stdout">
+<span class="diff"><%= 'Mobile'.padEnd(16) %></span>
+<% for (const [lbl, key] of entries) { %>
+  <span class="diff"><%= label(lbl) %></span><span style="color:<%= color(m[key]) %>"><%= bar(m[key]) %> <%= String(m[key]).padStart(3) %></span>
+<% } %>
+<span class="diff"><%= 'Desktop'.padEnd(16) %></span>
+<% for (const [lbl, key] of entries) { %>
+  <span class="diff"><%= label(lbl) %></span><span style="color:<%= color(d[key]) %>"><%= bar(d[key]) %> <%= String(d[key]).padStart(3) %></span>
+<% } %>
+</div>
+<% } %>
