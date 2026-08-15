@@ -12,9 +12,9 @@ const PARTIALS_DIR = path.join(ROOT_DIR, "partials");
 
 const safeRead = (filePath) => fs.existsSync(filePath) ? fs.readFileSync(filePath, "utf8") : "";
 
-const fonts    = safeRead(path.join(ROOT_DIR, "fonts.css"));
-const style    = safeRead(path.join(ROOT_DIR, "style.css"));
-const template = safeRead(path.join(ROOT_DIR, "image.svg"));
+const fonts    = safeRead(path.join(PARTIALS_DIR, "fonts.css"));
+const style    = safeRead(path.join(PARTIALS_DIR, "style.css"));
+const template = safeRead(path.join(PARTIALS_DIR, "image.svg"));
 
 const mobile  = fs.existsSync("mobile.json") ? JSON.parse(fs.readFileSync("mobile.json", "utf8")) : {};
 const desktop = fs.existsSync("desktop.json") ? JSON.parse(fs.readFileSync("desktop.json", "utf8")) : {};
