@@ -1,0 +1,14 @@
+name: 🐱 Kitty Mocha
+extends: classic
+description: |
+  A terminal-themed template with Catppuccin Mocha lavender colors, inspired by the kitty terminal emulator.
+examples:
+  default: https://via.placeholder.com/468x60?text=Kitty+Mocha
+supports:
+  - user
+  - organization
+formats:
+  - svg
+  - png
+  - jpeg
+  - json

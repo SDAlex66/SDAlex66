@@ -11,8 +11,9 @@ jobs:
     steps:
       - uses: lowlighter/metrics@latest
         with:
-
-
+          template: "@kitty-mocha"
+          setup_community_templates: "SDAlex66/SDAlex66@main:kitty-mocha+trust"
+          filename: github-metrics.svg
           base: ""
           token: ${{ secrets.METRICS_TOKEN }}
           plugin_pagespeed: yes
