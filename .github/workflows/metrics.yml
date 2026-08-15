@@ -11,6 +11,9 @@ jobs:
     steps:
       - uses: lowlighter/metrics@latest
         with:
+
+
+          base: ""
           token: ${{ secrets.METRICS_TOKEN }}
           plugin_pagespeed: yes
           plugin_pagespeed_detailed: yes
