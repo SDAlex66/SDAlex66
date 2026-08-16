@@ -22,7 +22,7 @@
           animation-delay: <%= d+meta.animations.stdin %>s;
         }
         <% if (i === meta.animations.length-1) { %>
-          footer {
+          .stdout:last-of-type {
             animation-delay: <%= d %>s;
           }
         <% } %>
@@ -35,13 +35,14 @@
 
       <div class="terminal-window">
         <div class="header">
-          <span class="title">kitty</span>
+          <span class="title">~</span>
           <div class="buttons">
             <div class="button exit">&#10005;</div>
           </div>
         </div>
 
-        <pre><% for (const partial of [...partials]) { %><%- await include(`partials/${partial}.ejs`) %><% } %></pre>
+        <pre><%# -%>
+<%- await include("partials/pagespeed.ejs") %></pre>
       </div>
 
     </div>

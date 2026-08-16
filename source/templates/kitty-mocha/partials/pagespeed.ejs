@@ -1,13 +1,13 @@
 <% if (plugins.pagespeed) { %>
 <div class="stdin"><%- meta.$ %>pagespeed <%= plugins.pagespeed.url %></div>
 <div class="stdout">
-<% if (plugins.pagespeed.error) { -%>
+<% if (plugins.pagespeed.error) { %>
 <span class="error"><%= plugins.pagespeed.error.message %></span>
-<% } else { -%>
-<span class="diff">▸ Performance</span>
-<% for (const {score, title} of plugins.pagespeed.scores) { -%>
+<% } else { %>
+<span class="diff">&#9656; Performance</span>
+<% for (const {score, title} of plugins.pagespeed.scores) { %>
   <span class="ps1-path"><%= title %></span>: <%= !Number.isNaN(score) ? Math.round(score*100) : "-" %>%
-<% } -%>
+<% } %>
 <% if (plugins.pagespeed.detailed) { for (const {name, score, suffix = "", threshold} of [
   {name:"First Contentful Paint", score:plugins.pagespeed.metrics.firstContentfulPaint/1000, suffix:"s", threshold:[2.336, 4]},
   {name:"Speed Index", score:plugins.pagespeed.metrics.speedIndex/1000, suffix:"s", threshold:[3.387, 5.8]},
@@ -15,14 +15,14 @@
   {name:"Time to Interactive", score:plugins.pagespeed.metrics.interactive/1000, suffix:"s", threshold:[3.785, 7.3]},
   {name:"Total Blocking Time", score:plugins.pagespeed.metrics.totalBlockingTime/1000, suffix:"s", threshold:[.287, .6]},
   {name:"Cumulative Layout Shift", score:+plugins.pagespeed.metrics.cumulativeLayoutShift, threshold:[.1, .25]}
-]) { -%}
-  <span class="diff">&gt; <%= name %></span>: <%= !Number.isNaN(score) ? score : "-" %><%= suffix %> <% if (Number.isNaN(score)) { %><% } else if (score <= threshold[0]) { %><span class="ps1-path">(good)</span><% } else if (score <= threshold[1]) { %><span class="warnings">(needs work)</span><% } else { %><span class="error">(poor)</span><% } %>
-<% }} -%}
-<% if (plugins.pagespeed.scores && plugins.pagespeed.scores.length) { -%>
+]) { %>
+  <span class="diff">&gt; <%= name %></span>: <%= !Number.isNaN(score) ? score : "-" %><%= suffix %><% if (Number.isNaN(score)) { %><% } else if (score <= threshold[0]) { %><span class="ps1-path">(good)</span><% } else if (score <= threshold[1]) { %><span class="warnings">(needs work)</span><% } else { %><span class="error">(poor)</span><% } %>
+<% } } %>
+<% if (plugins.pagespeed.scores && plugins.pagespeed.scores.length) { %>
 <br/>
-<span class="diff">▸ Overall score</span>
+<span class="diff">&#9656; Overall score</span>
   <span class="ps1-path"><%= Math.round((plugins.pagespeed.scores.reduce((a,{score}) => a+score, 0) / plugins.pagespeed.scores.length) * 100) %>%</span>
-<% } -%>
-<% } -%>
+<% } %>
+<% } %>
 </div>
-<% } -%>
+<% } %>
