@@ -3,7 +3,6 @@
   .terminal-window {
     border: 1px solid #b4befe;
     border-radius: 8px;
-    overflow: hidden;
   }
 
   svg {
@@ -51,7 +50,7 @@
     font-family: sans-serif;
   }
 
-  pre {
+  .terminal-content {
     margin: 0;
     font-family: 'Courier Prime';
     color: #cdd6f4;
@@ -106,20 +105,13 @@
   }
 
   .stdout {
-    max-height: 0%;
-    overflow: hidden;
-    animation-name: stdout-animation;
-    animation-fill-mode: both;
+    max-height: none;
+    overflow: visible;
   }
 
   @keyframes stdin-animation {
     0% { width: 0%; }
     100% { width: 100%; }
-  }
-
-  @keyframes stdout-animation {
-    0% { max-height: 0; }
-    100% { max-height: 9999px; }
   }
 
   #metrics-end {
