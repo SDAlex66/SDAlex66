@@ -160,9 +160,9 @@
   }
   .gauge-row {
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin: 8px 0;
+    justify-content: center;
+    gap: 32px;
+    margin: 16px 0;
   }
   .gauge-item {
     display: flex;
@@ -171,6 +171,6 @@
     gap: 4px;
   }
   .gauge-label {
-    color: #a6adc8;
+    color: #b4befe;
     font-size: 12px;
   }
