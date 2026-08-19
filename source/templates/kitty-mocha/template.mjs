@@ -1,8 +1,8 @@
 /**Template processor */
-export default async function({q, plugins}, _, {imports}) {
+export default async function(args, _, {imports}) {
   await imports.plugins.core(...arguments)
-  if (plugins.pagespeed && plugins.pagespeed.error) {
+  if (args.plugins?.pagespeed?.error) {
     throw new Error(`PageSpeed API error`)
   }
-  q.raw = true
+  args.q.raw = true
 }
