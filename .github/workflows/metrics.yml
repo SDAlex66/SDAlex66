@@ -18,5 +18,5 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN }}
           plugin_pagespeed: yes
           plugin_pagespeed_detailed: yes
-          plugin_pagespeed_url: https://alextula.com
+          plugin_pagespeed_url: https://www.alextula.com
           plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
