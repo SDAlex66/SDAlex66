@@ -3,6 +3,7 @@
   .terminal-window {
     border: 1px solid #b4befe;
     border-radius: 8px;
+    overflow: hidden;
   }
 
   svg {
@@ -148,7 +149,7 @@
     animation-delay: 250ms;
   }
   .gauge text {
-    fill: currentColor;
+    fill: #b4befe;
     font-size: 40px;
     font-family: monospace;
     text-anchor: middle;
