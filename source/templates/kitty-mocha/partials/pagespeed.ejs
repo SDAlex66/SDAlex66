@@ -23,7 +23,7 @@
 <% if (plugins.pagespeed.scores && plugins.pagespeed.scores.length) { %>
 <span class="diff">&#9656; Overall score</span>
   <span class="ps1-path"><%= Math.round((plugins.pagespeed.scores.reduce((a,{score}) => a+score, 0) / plugins.pagespeed.scores.length) * 100) %>%</span>
-<br /><%- meta.$ %>
+<br /><br /><br /><%- meta.$ %>
 <% } %>
 <% } %>
 </div>
