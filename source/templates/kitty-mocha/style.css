@@ -134,3 +134,50 @@
     animation-play-state: paused !important;
     caret-color: transparent !important;
   }
+
+  .gauge {
+    stroke-linecap: round;
+    fill: none;
+  }
+  .gauge.high    { color: #a6e3a1; }
+  .gauge.average { color: #f9e2af; }
+  .gauge.low     { color: #f38ba8; }
+  .gauge-base, .gauge-arc {
+    stroke: currentColor;
+    stroke-width: 10;
+  }
+  .gauge-base {
+    stroke-opacity: .2;
+  }
+  .gauge-arc {
+    fill: none;
+    stroke-dashoffset: 0;
+    animation: animation-gauge 1s ease forwards;
+    animation-delay: 250ms;
+  }
+  .gauge text {
+    fill: currentColor;
+    font-size: 40px;
+    font-family: monospace;
+    text-anchor: middle;
+    font-weight: 600;
+  }
+  @keyframes animation-gauge {
+    from { stroke-dasharray: 0 329; }
+  }
+  .gauge-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 8px 0;
+  }
+  .gauge-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .gauge-label {
+    color: #a6adc8;
+    font-size: 12px;
+  }

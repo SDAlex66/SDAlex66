@@ -1,25 +1,26 @@
 <% if (plugins.pagespeed) { %>
-<div class="stdin"><%- meta.$ %>pagespeed <%= plugins.pagespeed.url %></div>
+<div class="stdin"><%- meta.$ %>pagespeed www.alextula.com</div>
 <div class="stdout">
 <% if (plugins.pagespeed.error) { %>
 <span class="error"><%= plugins.pagespeed.error.message %></span>
 <% } else { %>
-<span class="diff">&#9656; Performance</span>
+<div class="gauge-row">
 <% for (const {score, title} of plugins.pagespeed.scores) { %>
-  <span class="ps1-path"><%= title %></span>: <%= !Number.isNaN(score) ? Math.round(score*100) : "-" %>%
+  <div class="gauge-item">
+    <svg viewBox="0 0 120 120" class="gauge <%= !Number.isNaN(score) ? (score >= 0.9 ? 'high' : score >= 0.5 ? 'average' : 'low') : '' %>">
+      <circle class="gauge-base" r="53" cx="60" cy="60"/>
+      <% if (!Number.isNaN(score)) { %>
+      <circle class="gauge-arc" transform="rotate(-90 60 60)" r="53" cx="60" cy="60" stroke-dasharray="<%= score * 329 %> 329"/>
+      <text x="60" y="60" dominant-baseline="central"><%= Math.round(score*100) %></text>
+      <% } else { %>
+      <text x="60" y="60" dominant-baseline="central">-</text>
+      <% } %>
+    </svg>
+    <span class="gauge-label"><%= title %></span>
+  </div>
 <% } %>
-<% if (plugins.pagespeed.detailed) { for (const {name, score, suffix = "", threshold} of [
-  {name:"First Contentful Paint", score:plugins.pagespeed.metrics.firstContentfulPaint/1000, suffix:"s", threshold:[2.336, 4]},
-  {name:"Speed Index", score:plugins.pagespeed.metrics.speedIndex/1000, suffix:"s", threshold:[3.387, 5.8]},
-  {name:"Largest Contentful Paint", score:plugins.pagespeed.metrics.largestContentfulPaint/1000, suffix:"s", threshold:[2.5, 4]},
-  {name:"Time to Interactive", score:plugins.pagespeed.metrics.interactive/1000, suffix:"s", threshold:[3.785, 7.3]},
-  {name:"Total Blocking Time", score:plugins.pagespeed.metrics.totalBlockingTime/1000, suffix:"s", threshold:[.287, .6]},
-  {name:"Cumulative Layout Shift", score:+plugins.pagespeed.metrics.cumulativeLayoutShift, threshold:[.1, .25]}
-]) { %>
-  <span class="diff">&gt; <%= name %></span>: <%= !Number.isNaN(score) ? score : "-" %><%= suffix %><% if (Number.isNaN(score)) { %><% } else if (score <= threshold[0]) { %><span class="ps1-path">(good)</span><% } else if (score <= threshold[1]) { %><span class="warnings">(needs work)</span><% } else { %><span class="error">(poor)</span><% } %>
-<% } } %>
+</div>
 <% if (plugins.pagespeed.scores && plugins.pagespeed.scores.length) { %>
-<br/>
 <span class="diff">&#9656; Overall score</span>
   <span class="ps1-path"><%= Math.round((plugins.pagespeed.scores.reduce((a,{score}) => a+score, 0) / plugins.pagespeed.scores.length) * 100) %>%</span>
 <% } %>
