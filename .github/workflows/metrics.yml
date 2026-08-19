@@ -9,7 +9,37 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: lowlighter/metrics@v3.34
+      - uses: actions/checkout@v4
+      - name: Metrics (attempt 1)
+        id: attempt1
+        continue-on-error: true
+        uses: lowlighter/metrics@v3.34
+        with:
+          template: "@kitty-mocha"
+          setup_community_templates: "SDAlex66/SDAlex66@main:kitty-mocha+trust"
+          filename: github-metrics.svg
+          base: ""
+          token: ${{ secrets.METRICS_TOKEN }}
+          plugin_pagespeed: yes
+          plugin_pagespeed_url: https://www.alextula.com
+          plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
+      - name: Metrics (attempt 2)
+        if: steps.attempt1.outcome == 'failure'
+        id: attempt2
+        continue-on-error: true
+        uses: lowlighter/metrics@v3.34
+        with:
+          template: "@kitty-mocha"
+          setup_community_templates: "SDAlex66/SDAlex66@main:kitty-mocha+trust"
+          filename: github-metrics.svg
+          base: ""
+          token: ${{ secrets.METRICS_TOKEN }}
+          plugin_pagespeed: yes
+          plugin_pagespeed_url: https://www.alextula.com
+          plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
+      - name: Metrics (attempt 3)
+        if: steps.attempt2.outcome == 'failure'
+        uses: lowlighter/metrics@v3.34
         with:
           template: "@kitty-mocha"
           setup_community_templates: "SDAlex66/SDAlex66@main:kitty-mocha+trust"
