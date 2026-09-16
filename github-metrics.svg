@@ -42,8 +42,8 @@
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="84" height="84" class="gauge high">
       <circle class="gauge-base" r="53" cx="60" cy="60"/>
       
-      <circle class="gauge-arc" transform="rotate(-90 60 60)" r="53" cx="60" cy="60" stroke-dasharray="329 329"/>
-      <text x="60" y="60" dominant-baseline="central">100</text>
+      <circle class="gauge-arc" transform="rotate(-90 60 60)" r="53" cx="60" cy="60" stroke-dasharray="325.71 329"/>
+      <text x="60" y="60" dominant-baseline="central">99</text>
       
     </svg>
     <span class="gauge-label">Performance</span>
@@ -85,7 +85,7 @@
 </div>
 
 <span class="diff">▸ Overall score</span>
-  <span class="ps1-path">97%</span>
+  <span class="ps1-path">96%</span>
 <br /><br /><br /><span class="ps1-path">alext</span><span class="ps1-location">@github-profile</span> <span class="ps1-path">~$</span> 
 
 
